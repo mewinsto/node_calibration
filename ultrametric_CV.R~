@@ -1,0 +1,12 @@
+##THIS SCRIPT FINDS THE OPTIMAL ULTRAMETRIC TREE VIA CROSS-VALIDATION AND THEN IMPLEMENTS IT
+##Helps to output tree from FigTree first
+library(ape)
+
+NWA = read.nexus("/home/mwinston/node_calibration/node_calibrate_tree_10.5.15")
+
+#Sample of Lambdas
+L = 10^(-6:6)
+CV = sapply(L, function (x) sum(attr(chronopl(NWA,lambda = x, CV = TRUE), "D2")))
+
+write(CV, file = "CV_test_NWA_large.txt",ncolumns=length(CV))
+write(L, file = "L_test_NWA_large.txt", ncolumns=length(L))
